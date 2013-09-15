@@ -1,5 +1,5 @@
 function ThousandWords() {
-	
+
 }
 
 ThousandWords.prototype = {
@@ -131,7 +131,7 @@ ThousandWords.prototype = {
 		this.crop.getContext('2d').fillRect( this.rect.x1, 0, this.rect.width, this.rect.y1 );
 		//this.crop.getContext('2d').fillStyle = 'rgba( 255,0,0,0.8)';
 		this.crop.getContext('2d').fillRect( this.rect.x1, this.rect.y2, this.rect.width, (this.crop.height-this.rect.height)*2 );
-		
+
 		this.crop.getContext('2d').fillStyle = 'rgba(255,255,255,0.5)';
 		this.crop.getContext('2d').strokeStyle = 'rgba(0,0,0,0.5)';
 		this.crop.getContext('2d').lineWidth   = 1;
@@ -148,7 +148,7 @@ ThousandWords.prototype = {
 		this.crop.getContext('2d').closePath();
 	},
 
-	preview: function() {
+	preview_crop: function() {
 		con = this.image.width/this.crop.width;
 		this.preview.getContext('2d').drawImage(this.image, (this.rect.x1*con), (this.rect.y1*con), (this.rect.width*con), (this.rect.height*con), 0, 0, this.targetWidth, this.targetHeight);
 	},
@@ -158,7 +158,7 @@ ThousandWords.prototype = {
 		y1 = this.mouse.y - this.mouse.grab.y;
 		width = this.rect.width;
 		height = this.rect.height;
-		
+
 		this.rect = this.validator(x1, y1, width, height);
 	},
 
@@ -175,6 +175,10 @@ ThousandWords.prototype = {
 		this.mouse.grab.x = this.mouse.grab.x + this.rect.width - delta;
 	},
 
+	upload : function() {
+
+	},
+
 	validator: function(x1, y1, width, height) {
 		if(width + this.rect.x1  > this.crop.width) {
 			width = this.crop.width - this.rect.x1;
@@ -188,7 +192,7 @@ ThousandWords.prototype = {
 			width = this.rect.width;
 			height = this.rect.height;
 		}
-		
+
 		if(height < this.minHeight) {
 			width = this.rect.width;
 			height = this.rect.height;
@@ -205,7 +209,7 @@ ThousandWords.prototype = {
 		if(y1 + this.rect.height > this.crop.height) {
 			y1 = this.crop.height - this.rect.height;
 		}
-		return { 
+		return {
 			x1: x1,
 			y1: y1,
 			x2: x1 + width,
@@ -253,7 +257,7 @@ ThousandWords.prototype = {
 				if((x2 - corner) < x && (y2 - corner) < y) {
 					return 2;
 				}
-				
+
 				return 1;
 			}
 		}
@@ -280,10 +284,10 @@ ThousandWords.prototype = {
 			}
 			if(this.mouse.state == 2) {
 				this.cropper();
-			}	
+			}
 		}
 		this.render();
-		this.preview;
+		this.preview_crop();
 	},
 
 	mouse_down : function(event) {
