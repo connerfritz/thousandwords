@@ -1,0 +1,22 @@
+{
+  "name": "thousandwords",
+  "description": "An awesome image cropper in JS."
+  "version": "0.0.2",
+  "main": "src/thousandwords.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/connerfritz/thousandwords.git"
+  },
+  "keywords": [
+    "cropper",
+    "crop",
+    "image",
+    "resize",
+    "canvas"
+  ],
+  "author": "Conner Fritz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/connerfritz/thousandwords/issues"
+  }
+}
