@@ -1,22 +1,37 @@
 <html>
   <head>
-    <title>Thousand Words Demo</title>
-    <script type="text/javascript" src="js/thousand-words.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>ThousandWords Demo</title>
+    <script type="text/javascript" data-main="js/main" src="js/require.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/thousandwords.css" rel="stylesheet">
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Thousand Words</a>
+          <a class="navbar-brand" href="#">ThousandWords</a>
         </div>
       </div>
     </nav>
-    <h1>Are you happy now?</h1>
-    <script>
-      var item = new ThousandWords();
-      item.init(640,320,2);
-    </script>
+    <div class="row">
+      <div class="container">
+        <h1>ThousandWords Cropper</h1>
+        <p>To use, simply add</p>
+        <pre>
+var thousandwords = new ThousandWords(
+  "['your identifier']", {
+    src: "img/['your image source']",
+    width: ['desired width'],
+    height: ['desired height'],
+    canvasWidth: ['desired modal width'],
+    canvasHeight: ['desired modal height']
+  }
+);</pre>
+        <p>And to get the results simple run:</p>
+        <pre>thousandwords.getImage()</pre>
+        <div id="cropper"></div>
+      </div>
+    </div>
   </body>
 </html>

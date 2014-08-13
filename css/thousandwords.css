@@ -1,0 +1,7 @@
+html, body {
+  padding-top: 50px;
+}
+.thousandwords-cropper {
+  border: 1px solid #57abd4;
+  border-radius: 3px;
+}
