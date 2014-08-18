@@ -1,5 +1,7 @@
-define(function () {
-
+(function () {
+  
+  var ThousandWords;
+  
   ThousandWords.prototype = {
 
     canvas:           null,
