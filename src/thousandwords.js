@@ -7,8 +7,8 @@
       options:          null,
       element:          null,
 
-      canvasWidth:      500,
-      canvasHeight:     600,
+      canvasWidth:      800,
+      canvasHeight:     800,
 
       minWidth:         null,
       minHeight:        null,
@@ -66,6 +66,7 @@
         this.canvas.className = "thousandwords-cropper";
         this.canvas.width = this.canvasWidth;
         this.canvas.height = this.canvasHeight;
+        this.canvas.style.cssText = 'max-width:100%'
         this.element.appendChild(this.canvas);
 
         document.addEventListener('mousedown', this, false);
@@ -168,11 +169,11 @@
       // MOUSE MOVEMENT
 
       buildMouse : function(event) {
-        offsetX = this.canvas.offsetLeft - document.body.scrollLeft;
-        offsetY = this.canvas.offsetTop - document.body.scrollTop;
+        offset = this.canvas.getBoundingClientRect();
 
-        x = event.clientX - offsetX;
-        y = event.clientY - offsetY;
+        x = Math.round((event.clientX - offset.left) * (this.canvas.width / offset.width));
+        y = Math.round((event.clientY - offset.top) * (this.canvas.height / offset.height));
+        console.log(this.canvas.width / offset.width)
 
         grab = this.mouse.grab;
         state = this.mouse.state;
