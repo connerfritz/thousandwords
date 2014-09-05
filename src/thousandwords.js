@@ -66,7 +66,7 @@
         this.canvas.className = "thousandwords-cropper";
         this.canvas.width = this.canvasWidth;
         this.canvas.height = this.canvasHeight;
-        this.canvas.style.cssText = 'max-width:100%'
+        this.canvas.style.cssText = 'max-width:100%; max-height: 600px'
         this.element.appendChild(this.canvas);
 
         document.addEventListener('mousedown', this, false);
@@ -123,19 +123,20 @@
         this.renderPicture();
         this.renderBlackspace();
         this.renderTriangle();
-        this.renderText();
+        // this.renderText();
       },
 
-      renderText: function() {
-        this.canvas.getContext('2d').font="20px Helvetica";
-        this.canvas.getContext('2d').fillStyle = 'black'
-        this.canvas.getContext('2d').textAlign = 'center';
-        this.canvas.getContext('2d').fillText("Crop Your Image",this.canvas.width/2,this.imageY/2);
-      },
+      // renderText: function() {
+      //   this.canvas.getContext('2d').font="20px Helvetica";
+      //   this.canvas.getContext('2d').fillStyle = 'black'
+      //   this.canvas.getContext('2d').textAlign = 'center';
+      //   this.canvas.getContext('2d').fillText("Crop Your Image",this.canvas.width/2,this.imageY/2);
+      // },
 
       renderPicture: function() {
-        this.canvas.getContext('2d').clearRect(0,0,this.canvas.width,this.canvas.height);
-        this.imageY = (this.canvas.height / 2) - (this.image.height / 2) + 50;
+        this.canvas.width = this.image.width;
+        this.canvas.height = this.image.height;
+        // this.canvas.getContext('2d').clearRect(0,0,this.canvas.width,this.canvas.height);
         this.canvas.getContext('2d').drawImage(this.image, 0, this.imageY, this.image.width, this.image.height );
       },
 
@@ -173,7 +174,6 @@
 
         x = Math.round((event.clientX - offset.left) * (this.canvas.width / offset.width));
         y = Math.round((event.clientY - offset.top) * (this.canvas.height / offset.height));
-        console.log(this.canvas.width / offset.width)
 
         grab = this.mouse.grab;
         state = this.mouse.state;
@@ -317,18 +317,23 @@
         this.result.width = this.options.width;
         this.result.height = this.options.height;
         this.result.getContext('2d').drawImage(this.image, (this.cropper.x/scale), ((this.cropper.y/scale)-(this.imageY/scale)), (this.cropper.width/scale), (this.cropper.height/scale), 0, 0, this.options.width, this.options.height);
-        data = this.result.toDataURL();
+        // data = this.result.toDataURL();
 
         return {
-          width: this.options.width,
-          height: this.options.height,
-          xOffset: this.options.x,
-          yOffset: this.options.y,
-          originalWidth: this.original.width,
-          originalHeight: this.original.height,
-          xOriginOffset: this.cropper.x/scale,
-          yOriginOffset: this.cropper.y/scale,
-          image: data
+          // width: this.options.width,
+          // height: this.options.height,
+          // xOffset: this.options.x,
+          // yOffset: this.options.y,
+          // originalWidth: this.original.width,
+          // originalHeight: this.original.height,
+          // xOriginOffset: this.cropper.x/scale,
+          // yOriginOffset: this.cropper.y/scale,
+          xOffset:  Math.round(this.cropper.x/scale),
+          yOffset:  Math.round(this.cropper.y/scale),
+          width:    Math.round(this.cropper.width/scale),
+          height:   Math.round(this.cropper.height/scale)
+
+          // image: data
         }
       }
     }
