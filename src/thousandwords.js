@@ -49,6 +49,12 @@
         this.loadImage();
       },
 
+      reset: function(options) {
+        this.canvas.parentElement.removeChild(this.canvas);
+        this.options = options;
+        this.init();
+      },
+
       handleEvent : function(event) {
         if(event.type === "mousemove") {
           this.mouseMove(event);
