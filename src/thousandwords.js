@@ -72,7 +72,6 @@
         this.canvas.className = "thousandwords-cropper";
         this.canvas.width = this.canvasWidth;
         this.canvas.height = this.canvasHeight;
-        this.canvas.style.cssText = 'max-width:100%; max-height: 600px'
         this.element.appendChild(this.canvas);
 
         document.addEventListener('mousedown', this, false);
