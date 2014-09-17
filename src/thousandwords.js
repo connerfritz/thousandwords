@@ -213,7 +213,7 @@
 
       mouseMove: function(ev) {
         if(this.mouse.state !== false) {
-          this.buildMouse(event);
+          this.buildMouse(ev);
           if(this.mouse.state == 1) {
             this.drag();
           }
