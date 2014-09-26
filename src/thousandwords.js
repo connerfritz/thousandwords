@@ -65,6 +65,16 @@
         if(event.type === "mouseup") {
           this.mouseUp(event);
         }
+        if(event.type === "touchstart") {
+          this.mouseDown(event.touches[0]);
+        }
+        if(event.type === "touchend") {
+          this.mouseUp(event);
+        }
+        if(event.type === "touchmove") {
+          event.preventDefault();
+          this.mouseMove(event.touches[0]);
+        }
       },
 
       create: function() {
@@ -77,6 +87,9 @@
         document.addEventListener('mousedown', this, false);
         document.addEventListener('mouseup', this, false);
         document.addEventListener('mousemove', this, false);
+        document.addEventListener('touchstart', this, false);
+        document.addEventListener('touchend', this, false);
+        this.canvas.addEventListener('touchmove', this, false);
       },
 
       loadImage: function() {
@@ -233,7 +246,7 @@
 
         state = this.mouse.state;
         if(state == 0) {
-          if((x1 < x && x < x2) && (y1 < y && y < y2)) {
+          if((x1 < x && x < x2 + 10) && (y1 < y && y < y2 + 10)) {
             if((x2 - corner) < x && (y2 - corner) < y) {
               return 2;
             }
