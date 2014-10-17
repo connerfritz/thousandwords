@@ -133,7 +133,7 @@
         this.cropper.height = this.minHeight;
         this.image.width = width;
         this.image.height = height;
-        if(typeof this.options.crop_width === 'number' && typeof this.options.crop_height === 'number' && typeof this.options.crop_x === 'number' && typeof this.options.crop_y === 'number') {
+        if(!isNaN(this.options.crop_width) && !isNaN(this.options.crop_height) && !isNaN(this.options.crop_x) && !isNaN(this.options.crop_y)) {
           this.cropper.width = this.options.crop_width * this.original.scale;
           this.cropper.height = this.options.crop_height * this.original.scale;
           this.cropper.x = this.options.crop_x * this.original.scale;
