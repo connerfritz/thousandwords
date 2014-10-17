@@ -133,7 +133,7 @@
         this.cropper.height = this.minHeight;
         this.image.width = width;
         this.image.height = height;
-        if(this.options.crop_width, this.options.crop_height, this.options.crop_x, this.options.crop_y) {
+        if(typeof this.options.crop_width !== 'undefined' && typeof this.options.crop_height !== 'undefined' && typeof this.options.crop_x !== 'undefined' && typeof this.options.crop_y !== 'undefined') {
           this.cropper.width = this.options.crop_width * this.original.scale;
           this.cropper.height = this.options.crop_height * this.original.scale;
           this.cropper.x = this.options.crop_x * this.original.scale;

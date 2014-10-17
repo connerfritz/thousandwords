@@ -1,8 +1,8 @@
 ThousandWords.js
 =============
 
-A fast, light weight image resizer and uploader that saves both server load and bandwidth.
+A fast, light weight, responsive image resizer with touch controls.
 
-Current Version: 0.1.7
+Current Version: 0.1.8
 
 Demo: http://connerfritz.github.io/thousandwords/
