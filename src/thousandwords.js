@@ -104,7 +104,6 @@
 
           self.resizeImage();
           self.render();
-          self.cropper.y = self.imageY;
         }
         return this.image;
       },
@@ -133,6 +132,7 @@
         this.cropper.height = this.minHeight;
         this.image.width = width;
         this.image.height = height;
+        this.cropper.y = this.imageY;
         if(!isNaN(this.options.crop_width) && !isNaN(this.options.crop_height) && !isNaN(this.options.crop_x) && !isNaN(this.options.crop_y)) {
           this.cropper.width = this.options.crop_width * this.original.scale;
           this.cropper.height = this.options.crop_height * this.original.scale;
