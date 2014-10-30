@@ -173,11 +173,16 @@
         this.canvas.getContext('2d').fillRect( this.cropper.x, this.imageY, this.cropper.width, this.cropper.y - this.imageY );
         //this.canvas.getContext('2d').fillStyle = 'rgba( 255,0,0,0.8)';
         this.canvas.getContext('2d').fillRect( this.cropper.x, this.cropper.y2(), this.cropper.width, (this.imageY + this.image.height - this.cropper.y - this.cropper.height));
+
+        this.canvas.getContext('2d').strokeStyle = 'rgba(255,255,255,1)';
+        this.canvas.getContext('2d').lineWidth   = 3;
+        this.canvas.getContext('2d').setLineDash([20]);
+        this.canvas.getContext('2d').strokeRect (this.cropper.x, this.cropper.y, this.cropper.width, this.cropper.height);
       },
 
       renderTriangle: function() {
-        this.canvas.getContext('2d').fillStyle = 'rgba(0,0,255,0.5)';
-        this.canvas.getContext('2d').strokeStyle = 'rgba(130,130,255,0.9)';
+        this.canvas.getContext('2d').fillStyle = 'rgba(255,255,255,1)';
+        this.canvas.getContext('2d').strokeStyle = 'rgba(0,0,0,0.8)';
         this.canvas.getContext('2d').lineWidth   = 1;
 
         this.canvas.getContext('2d').beginPath();
