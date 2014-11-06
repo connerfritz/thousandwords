@@ -128,8 +128,18 @@
         }
         this.minWidth = Math.round(this.options.width * this.original.scale);
         this.minHeight = Math.round(this.options.height * this.original.scale);
-        this.cropper.width = this.minWidth;
-        this.cropper.height = this.minHeight;
+
+        upperWidth = (height / this.minHeight) * this.minWidth
+        upperHeight = (width / this.minWidth) * this.minHeight
+
+        if (upperHeight <= height) {
+          this.cropper.width = width;
+          this.cropper.height = upperHeight;
+        } else {
+          this.cropper.width = upperWidth;
+          this.cropper.height = height;
+        }
+
         this.image.width = width;
         this.image.height = height;
         this.cropper.y = this.imageY;
@@ -181,15 +191,18 @@
       },
 
       renderTriangle: function() {
+        corner = 50
+
         this.canvas.getContext('2d').fillStyle = 'rgba(255,255,255,1)';
         this.canvas.getContext('2d').strokeStyle = 'rgba(0,0,0,0.8)';
-        this.canvas.getContext('2d').lineWidth   = 1;
+        this.canvas.getContext('2d').lineWidth   = 5;
+        this.canvas.getContext('2d').setLineDash([null]);
 
         this.canvas.getContext('2d').beginPath();
-        this.canvas.getContext('2d').moveTo((this.cropper.x2() - 25), (this.cropper.y2())); // give the (x,y) coordinates
+        this.canvas.getContext('2d').moveTo((this.cropper.x2() - corner), (this.cropper.y2())); // give the (x,y) coordinates
         this.canvas.getContext('2d').lineTo((this.cropper.x2()), (this.cropper.y2()));
-        this.canvas.getContext('2d').lineTo((this.cropper.x2()), (this.cropper.y2() - 25));
-        this.canvas.getContext('2d').lineTo((this.cropper.x2() - 25), (this.cropper.y2()));
+        this.canvas.getContext('2d').lineTo((this.cropper.x2()), (this.cropper.y2() - corner));
+        this.canvas.getContext('2d').lineTo((this.cropper.x2() - corner), (this.cropper.y2()));
 
         this.canvas.getContext('2d').fill();
         this.canvas.getContext('2d').stroke();
@@ -253,11 +266,11 @@
         x2 = this.cropper.x2();
         y1 = this.cropper.y;
         y2 = this.cropper.y2();
-        corner = 25;
+        corner = 50;
 
         state = this.mouse.state;
         if(state == 0) {
-          if((x1 < x && x < x2 + 10) && (y1 < y && y < y2 + 10)) {
+          if((x1 < x && x < x2) && (y1 < y && y < y2)) {
             if((x2 - corner) < x && (y2 - corner) < y) {
               return 2;
             }
