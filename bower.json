@@ -1,7 +1,7 @@
 {
   "name": "thousandwords",
   "description": "An awesome image cropper in JS.",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "src/thousandwords.js",
   "repository": {
     "type": "git",
