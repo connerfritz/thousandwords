@@ -113,41 +113,47 @@ define("vendor/thousandwords", ['exports'], function(exports) {
     var height = this.image.height;
     this.original.width = width;
     this.original.height = height;
+
     if (width > height) {
       if (width > this.canvasWidth) {
-        width = this.canvasWidth;
         this.original.scale = this.canvasWidth / this.image.width;
-        height *= this.original.scale;
       }
     } else {
-      if (height > this.canvasHeight) {
+      if (height >= this.canvasHeight) {
         this.original.scale = this.canvasHeight / this.image.height;
-        width *= this.original.scale;
-        height = this.canvasHeight;
       }
     }
+
     this.minWidth = Math.round(this.options.width * this.original.scale);
     this.minHeight = Math.round(this.options.height * this.original.scale);
 
     upperWidth = (height / this.minHeight) * this.minWidth
     upperHeight = (width / this.minWidth) * this.minHeight
 
+    this.defaultCropperSetting(width, height, upperWidth, upperHeight)
+
+    if(!isNaN(this.options.crop_width) && !isNaN(this.options.crop_height) && !isNaN(this.options.crop_x) && !isNaN(this.options.crop_y)) {
+      this.cropper.width = this.options.crop_width;
+      this.cropper.height = this.options.crop_height;
+      this.cropper.x = this.options.crop_x;
+      this.cropper.y = this.options.crop_y;
+      if(this.options.crop_width + this.options.crop_x > width || this.options.crop_height + this.options.crop_y > height) {
+        this.defaultCropperSetting(width, height, upperWidth, upperHeight);
+      }
+    }
+  };
+
+  ThousandWords.prototype.defaultCropperSetting = function(width, height, upperWidth, upperHeight) {
     if (upperHeight <= height) {
+      this.cropper.x = 0;
+      this.cropper.y = 0;
       this.cropper.width = width;
       this.cropper.height = upperHeight;
     } else {
+      this.cropper.x = 0;
+      this.cropper.y = 0;
       this.cropper.width = upperWidth;
       this.cropper.height = height;
-    }
-
-    this.image.width = width;
-    this.image.height = height;
-    this.cropper.y = this.imageY;
-    if(!isNaN(this.options.crop_width) && !isNaN(this.options.crop_height) && !isNaN(this.options.crop_x) && !isNaN(this.options.crop_y)) {
-      this.cropper.width = this.options.crop_width * this.original.scale;
-      this.cropper.height = this.options.crop_height * this.original.scale;
-      this.cropper.x = this.options.crop_x * this.original.scale;
-      this.cropper.y = this.options.crop_y * this.original.scale;
     }
   };
 
@@ -157,31 +163,19 @@ define("vendor/thousandwords", ['exports'], function(exports) {
     this.renderPicture();
     this.renderBlackspace();
     this.renderTriangle();
-    // this.renderText();
   };
-
-  // renderText = function() {
-  //   this.canvas.getContext('2d').font="20px Helvetica";
-  //   this.canvas.getContext('2d').fillStyle = 'black'
-  //   this.canvas.getContext('2d').textAlign = 'center';
-  //   this.canvas.getContext('2d').fillText("Crop Your Image",this.canvas.width/2,this.imageY/2);
-  // },
 
   ThousandWords.prototype.renderPicture = function() {
     this.canvas.width = this.image.width;
     this.canvas.height = this.image.height;
-    // this.canvas.getContext('2d').clearRect(0,0,this.canvas.width,this.canvas.height);
     this.canvas.getContext('2d').drawImage(this.image, 0, this.imageY, this.image.width, this.image.height );
   };
 
   ThousandWords.prototype.renderBlackspace = function() {
     this.canvas.getContext('2d').fillStyle = 'rgba( 0,0,0,0.7)';
     this.canvas.getContext('2d').fillRect( 0, this.imageY, this.cropper.x, this.image.height );
-    //this.canvas.getContext('2d').fillStyle = 'rgba( 0,0,255,0.8)';
     this.canvas.getContext('2d').fillRect( this.cropper.x2(), this.imageY, this.canvas.width-this.cropper.width, this.image.height );
-    //this.canvas.getContext('2d').fillStyle = 'rgba( 0,255,0,0.8)';
     this.canvas.getContext('2d').fillRect( this.cropper.x, this.imageY, this.cropper.width, this.cropper.y - this.imageY );
-    //this.canvas.getContext('2d').fillStyle = 'rgba( 255,0,0,0.8)';
     this.canvas.getContext('2d').fillRect( this.cropper.x, this.cropper.y2(), this.cropper.width, (this.imageY + this.image.height - this.cropper.y - this.cropper.height));
 
     this.canvas.getContext('2d').strokeStyle = 'rgba(255,255,255,1)';
@@ -354,28 +348,11 @@ define("vendor/thousandwords", ['exports'], function(exports) {
   };
 
   ThousandWords.prototype.getImage = function() {
-    scale = this.original.scale;
-    this.result = document.createElement('canvas');
-    this.result.width = this.options.width;
-    this.result.height = this.options.height;
-    this.result.getContext('2d').drawImage(this.image, (this.cropper.x/scale), ((this.cropper.y/scale)-(this.imageY/scale)), (this.cropper.width/scale), (this.cropper.height/scale), 0, 0, this.options.width, this.options.height);
-    // data = this.result.toDataURL();
-
     return {
-      // width: this.options.width,
-      // height: this.options.height,
-      // xOffset: this.options.x,
-      // yOffset: this.options.y,
-      // originalWidth: this.original.width,
-      // originalHeight: this.original.height,
-      // xOriginOffset: this.cropper.x/scale,
-      // yOriginOffset: this.cropper.y/scale,
-      xOffset:  Math.round(this.cropper.x/scale),
-      yOffset:  Math.round(this.cropper.y/scale),
-      width:    Math.round(this.cropper.width/scale),
-      height:   Math.round(this.cropper.height/scale)
-
-      // image: data
+      xOffset:  Math.round(this.cropper.x),
+      yOffset:  Math.round(this.cropper.y),
+      width:    Math.round(this.cropper.width),
+      height:   Math.round(this.cropper.height)
     }
   };
 
