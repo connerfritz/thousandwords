@@ -97,11 +97,6 @@ define("vendor/thousandwords", ['exports'], function(exports) {
     this.image = new Image();
     this.image.src = this.options["src"];
     this.image.onload = function() {
-      if (self.image.width < self.options.width || self.image.height < self.options.height) {
-        errors.push('The image you selected is too small to upload. Please choose an image at least ' + self.options.width + ' by ' + self.options.height);
-        return false;
-      }
-
       self.resizeImage();
       self.render();
     }
@@ -132,7 +127,7 @@ define("vendor/thousandwords", ['exports'], function(exports) {
 
     this.defaultCropperSetting(width, height, upperWidth, upperHeight)
 
-    if(!isNaN(this.options.crop_width) && !isNaN(this.options.crop_height) && !isNaN(this.options.crop_x) && !isNaN(this.options.crop_y)) {
+    if(!isNaN(this.options.crop_width) && !isNaN(this.options.crop_height) && !isNaN(this.options.crop_x) && !isNaN(this.options.crop_y) && (this.options.crop_width * this.options.crop_height * this.options.crop_x * this.options.crop_y) > 0) {
       this.cropper.width = this.options.crop_width;
       this.cropper.height = this.options.crop_height;
       this.cropper.x = this.options.crop_x;
