@@ -49,10 +49,10 @@ define("vendor/thousandwords", ['exports'], function(exports) {
     this.loadImage();
   };
 
-  ThousandWords.prototype.reset = function() {
+  ThousandWords.prototype.reset = function(options) {
     this.canvas.parentElement.removeChild(this.canvas);
     this.options = options;
-    this.init();
+    this.init(this.element, options);
   };
 
   ThousandWords.prototype.handleEvent = function(event) {
