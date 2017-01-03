@@ -127,7 +127,7 @@ define("vendor/thousandwords", ['exports'], function(exports) {
 
     this.defaultCropperSetting(width, height, upperWidth, upperHeight)
 
-    if(!isNaN(this.options.crop_width) && !isNaN(this.options.crop_height) && !isNaN(this.options.crop_x) && !isNaN(this.options.crop_y) && (this.options.crop_width * this.options.crop_height * this.options.crop_x * this.options.crop_y) > 0) {
+    if(!isNaN(this.options.crop_width) && !isNaN(this.options.crop_height) && !isNaN(this.options.crop_x) && !isNaN(this.options.crop_y) && (this.options.crop_width * this.options.crop_height) > 0) {
       this.cropper.width = this.options.crop_width;
       this.cropper.height = this.options.crop_height;
       this.cropper.x = this.options.crop_x;
